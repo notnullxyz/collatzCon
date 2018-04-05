@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1522939179 source:/home/marlonv/dev/marlon/collatzCon/src/collatzA/main.cpp
+	<iostream>
+	<stdlib.h>
+	<unordered_map>
+	<vector>
+
