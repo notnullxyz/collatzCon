@@ -1,0 +1,7 @@
+Release/*
+obj/*
+bin/*
+!bin/.gitkeep
+*.o
+*.out
+src/collatzA/bin/
