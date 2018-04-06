@@ -13,6 +13,7 @@ using namespace std;
 int calCol(int limit);
 int unravel(int unravel);
 void dumpMap(unordered_map<int, int> map2dump);
+int* findLargestTermCount(unordered_map<int, int> searchMap);
 
 /**
  * Ubiquotous main boilerplate.
@@ -36,6 +37,7 @@ int main(int argc, char* argv[]) {
 /**
  * The main calculation loop to determine the longest Collatz (number of terms) up to the specified upper limit.
  * @param int limit The upper limit of number to break down into their respective collatz sequences.
+ * @return int Largest term count
  */
 int calCol(int limit) {
     unordered_map<int, int> numberToTermMap;
@@ -47,9 +49,12 @@ int calCol(int limit) {
         }
     }
 
-    dumpMap(numberToTermMap);
+    int* maxes;
+    maxes = findLargestTermCount(numberToTermMap);
+    cout << "Concluded largest term chain is for number " << maxes[1] << " with " << maxes[0]
+        << " terms" << endl;
 
-    return 999;     // todo - return largest number of terms in the map, max map key?
+    return maxes[0];
 }
 
 /**
@@ -81,6 +86,19 @@ int unravel(int num) {
     return termCount;
 }
 
+/**
+ * Finds the largest term count for a given starting number
+ */
+int * findLargestTermCount(unordered_map<int, int> searchMap) {
+    static int maxes[2];
+    for ( auto it = searchMap.begin(); it != searchMap.end(); ++it ) {
+        if (it->second > maxes[0]) {
+            maxes[0] = it->second;
+            maxes[1] = it->first;
+        }
+    }
+    return maxes;
+}
 
 /**
  * A development function for me to see what's in the map.
@@ -92,3 +110,7 @@ void dumpMap(unordered_map<int, int> map2dump) {
         cout << endl;
     }
 }
+
+
+
+
