@@ -7,6 +7,8 @@
  */
 
 using namespace std;
+map<long, long> memo;
+
 
 /**
  * Ubiquotous main boilerplate.
@@ -33,10 +35,11 @@ int main(int argc, char* argv[]) {
  * @return int Largest term count
  */
 long calCol(long limit) {
-    unordered_map<long, long> numberToTermMap;
+    unordered_map<long , long> numberToTermMap;
 
     for (long i = 1; i <= limit; i++) {
         long result = unravel(i);
+
         if (result > 0) {
             numberToTermMap[i] = result;
         }
@@ -44,6 +47,7 @@ long calCol(long limit) {
 
     unsigned long* maxes;
     maxes = findLargestTermCount(numberToTermMap);
+
     cout << "Concluded largest term chain is for number " << maxes[1] << " with " << maxes[0]
         << " terms" << endl;
 
@@ -55,29 +59,24 @@ long calCol(long limit) {
  * @param int unravel A positive number to break into a collatz sequence
  */
 long unravel(long num) {
-    std::vector<int> pTerms;
-    unsigned long termCount = 1;  // I start counting terms at 1, as the starting number is one of the terms.
+    long termCount = 1L;  // I start counting terms at 1, as the starting number is one of the terms.
 
     do {
-        if (num == 1) {
-            termCount++;
+        if (num == 1L) {
             break;
         }
 
-
-
-        if (num % 2 == 0) {
-            num = num / 2;
-            termCount++;
+        if (memo[num]) {
+            num = memo[num];
         } else {
-            num = 3 * num + 1;
-            termCount++;
-        }
+            long x = (num % 2 == 0) ? num / 2 : 3 * num + 1;
+            memo.insert(pair<long, long>(num, x));
+            num = x;
+        };
 
-        pTerms.push_back(num);
-    } while (num > 1);
+        termCount++;
+    } while (num > 1L);
 
-    pTerms.resize(termCount);
     return termCount;
 }
 
