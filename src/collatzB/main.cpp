@@ -4,7 +4,6 @@
 /**
  * Marlon van der Linde <marlonv@protonmail.com>
  * Collatz Conjecture for U*****c.
- * Part B
  */
 
 using namespace std;
@@ -12,7 +11,7 @@ using namespace std;
 /**
  * Ubiquotous main boilerplate.
  */
-int main(int argc, char *argv[]) {
+int main(int argc, char* argv[]) {
 
     auto usage = []() {
         cout << "collatzA - Collatz Conjecture Term Calculator" << endl;
@@ -43,10 +42,10 @@ long calCol(long limit) {
         }
     }
 
-    long *maxes;
+    unsigned long* maxes;
     maxes = findLargestTermCount(numberToTermMap);
     cout << "Concluded largest term chain is for number " << maxes[1] << " with " << maxes[0]
-         << " terms" << endl;
+        << " terms" << endl;
 
     return maxes[0];
 }
@@ -56,8 +55,8 @@ long calCol(long limit) {
  * @param int unravel A positive number to break into a collatz sequence
  */
 long unravel(long num) {
-    std::vector<long> pTerms;
-    long termCount = 1;  // I start counting terms at 1, as the starting number is one of the terms.
+    std::vector<int> pTerms;
+    unsigned long termCount = 1;  // I start counting terms at 1, as the starting number is one of the terms.
 
     do {
         if (num == 1) {
@@ -65,9 +64,17 @@ long unravel(long num) {
             break;
         }
 
-        num = (num % 2 == 0) ? num / 2 : 3 * num++;
-        pTerms.push_back(num);
 
+
+        if (num % 2 == 0) {
+            num = num / 2;
+            termCount++;
+        } else {
+            num = 3 * num + 1;
+            termCount++;
+        }
+
+        pTerms.push_back(num);
     } while (num > 1);
 
     pTerms.resize(termCount);
@@ -77,9 +84,9 @@ long unravel(long num) {
 /**
  * Finds the largest term count for a given starting number
  */
-long *findLargestTermCount(unordered_map<long, long> searchMap) {
-    static long maxes[2];
-    for (auto it = searchMap.begin(); it != searchMap.end(); ++it) {
+unsigned long * findLargestTermCount(unordered_map<long, long> searchMap) {
+    static unsigned long maxes[2];
+    for ( auto it = searchMap.begin(); it != searchMap.end(); ++it ) {
         if (it->second > maxes[0]) {
             maxes[0] = it->second;
             maxes[1] = it->first;

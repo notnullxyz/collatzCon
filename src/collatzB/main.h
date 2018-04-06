@@ -7,6 +7,6 @@
 
 long calCol(long limit);
 long unravel(long unravel);
-long* findLargestTermCount(std::unordered_map<long, long> searchMap);
+unsigned long* findLargestTermCount(std::unordered_map<long, long> searchMap);
 
 #endif
