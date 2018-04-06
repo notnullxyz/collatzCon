@@ -1,7 +1,5 @@
-#include <iostream>
-#include <stdlib.h>
 #include <unordered_map>
-#include <vector>
+#include "main.h"
 
 /**
  * Marlon van der Linde <marlonv@protonmail.com>
@@ -9,11 +7,6 @@
  */
 
 using namespace std;
-
-int calCol(int limit);
-int unravel(int unravel);
-void dumpMap(unordered_map<int, int> map2dump);
-int* findLargestTermCount(unordered_map<int, int> searchMap);
 
 /**
  * Ubiquotous main boilerplate.
@@ -39,17 +32,17 @@ int main(int argc, char* argv[]) {
  * @param int limit The upper limit of number to break down into their respective collatz sequences.
  * @return int Largest term count
  */
-int calCol(int limit) {
-    unordered_map<int, int> numberToTermMap;
+long calCol(long limit) {
+    unordered_map<long, long> numberToTermMap;
 
-    for (int i = 1; i <= limit; i++) {
-        int result = unravel(i);
+    for (long i = 1; i <= limit; i++) {
+        long result = unravel(i);
         if (result > 0) {
             numberToTermMap[i] = result;
         }
     }
 
-    int* maxes;
+    long* maxes;
     maxes = findLargestTermCount(numberToTermMap);
     cout << "Concluded largest term chain is for number " << maxes[1] << " with " << maxes[0]
         << " terms" << endl;
@@ -61,9 +54,9 @@ int calCol(int limit) {
  * Isolating function for breaking up a positive number into a number of terms up to ...
  * @param int unravel A positive number to break into a collatz sequence
  */
-int unravel(int num) {
+long unravel(long num) {
     std::vector<int> pTerms;
-    int termCount = 1;  // I start counting terms at 1, as the starting number is one of the terms.
+    unsigned long termCount = 1;  // I start counting terms at 1, as the starting number is one of the terms.
 
     do {
         if (num == 1) {
@@ -89,8 +82,8 @@ int unravel(int num) {
 /**
  * Finds the largest term count for a given starting number
  */
-int * findLargestTermCount(unordered_map<int, int> searchMap) {
-    static int maxes[2];
+long * findLargestTermCount(unordered_map<long, long> searchMap) {
+    static long maxes[2];
     for ( auto it = searchMap.begin(); it != searchMap.end(); ++it ) {
         if (it->second > maxes[0]) {
             maxes[0] = it->second;
@@ -100,16 +93,6 @@ int * findLargestTermCount(unordered_map<int, int> searchMap) {
     return maxes;
 }
 
-/**
- * A development function for me to see what's in the map.
- */
-void dumpMap(unordered_map<int, int> map2dump) {
-    cout << "dumping: " << endl;
-    for ( auto it = map2dump.begin(); it != map2dump.end(); ++it ) {
-        cout << "-- " << it->first << ":" << it->second;
-        cout << endl;
-    }
-}
 
 
 

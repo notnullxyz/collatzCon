@@ -5,3 +5,6 @@ bin/*
 *.o
 *.out
 src/collatzA/bin/
+.idea/
+CMakeLists.txt
+cmake-build-debug/
