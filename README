@@ -8,17 +8,21 @@ Please build on the command line with `g++`, eg, to build collatzA:
 
 	`g++ src/collatzA/main.cpp -o bin/collatzA -std=gnu++11`
 
- or for Part B
+ or for Part B or C
 
 	`g++ src/collatzB/main.cpp -o bin/collatzB -std=gnu++11`
+	`g++ src/collatzC/main.cpp -o bin/collatzC -std=gnu++11`
 
 This will plae a binary into the `bin/` subdirectory, which will be executable like:
 	
 	`./bin/collatzA 113`
 
- or for Part B
+ or for Part B or C
 
 	`./bin/collatzB 214`
+	`./bin/collatzC 41`
+
+
 
 == Makefile
 
